@@ -2,12 +2,12 @@ FROM node:16.15.0-alpine as build
 WORKDIR /app
 COPY . /app/
 
-RUN npm
-RUN npm build
+RUN npm i
+RUN npm run build
 
 FROM nginx
 COPY --from=build /app/build /usr/share/nginx/html
-RUN rm /etcnginx/conf.d/default.conf
+RUN rm /etc/nginx/conf.d/default.conf
 COPY nginx/nginx.conf /etc/nginx/conf.d
 
 EXPOSE 80
